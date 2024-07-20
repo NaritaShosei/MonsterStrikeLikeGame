@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-public  class PlayerBase : MonoBehaviour
+public class PlayerBase : MonoBehaviour
 {
     [SerializeField] CharacterMode _characterMode;
     [SerializeField] float _power;
@@ -40,8 +40,8 @@ public  class PlayerBase : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             _endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 force = Vector2.ClampMagnitude((_startPos - _endPos), _maxPower);
-            _rb2d.AddForce(force * _power, ForceMode2D.Impulse);
+            Vector2 startDirection = (_startPos - _endPos).normalized;
+            _rb2d.AddForce(startDirection * _power, ForceMode2D.Impulse);
         }
     }
 }
